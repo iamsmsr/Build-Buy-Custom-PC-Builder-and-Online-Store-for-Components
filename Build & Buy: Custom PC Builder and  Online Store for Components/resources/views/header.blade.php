@@ -9,19 +9,26 @@
 <body>
 <header class="header-container">
     <div class="header-left">
-        <!-- Sign In, Sign Up, Admin Login buttons -->
-        <button class="btn" onclick="redirectTo('signin')">Sign In</button>
-        <button class="btn" onclick="redirectTo('signup')">Sign Up</button>
+        <!-- Sign In, Sign Up buttons with updated routes -->
+        <a href="{{ route('ecommerce.register') }}" class="btn">Sign Up</a>
+        <a href="{{ route('ecommerce.login') }}" class="btn">Sign In</a>
         <!-- Admin Login button linked to admin login page -->
         <a href="{{ route('admin.login') }}" class="btn">Admin Login</a>
+        <a href="{{ route('main.page') }}" class="btn">Main Page</a>
     </div>
     <div class="header-center">
         <h1>Build & Buy: Custom PC Builder and Online Store for Components</h1>
     </div>
     <div class="header-right">
+        <!-- Cart button with dynamic item count -->
+        <a href="{{ route('cart.page') }}" class="cart-btn">
+            Cart ({{ count(session('cart', [])) }})
+        </a>
+    </div>
+    <div class="header-right">
         <!-- User info (dynamically shows 'Annonymous' by default) -->
         <span class="user-info">
-            User: {{ session('user_name', 'Annonymous') }}
+    User: {{ session('user_name', 'Annonymous') }}
         </span>
     </div>
 </header>

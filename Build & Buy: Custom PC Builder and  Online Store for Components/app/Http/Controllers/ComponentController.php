@@ -19,7 +19,7 @@ class ComponentController extends Controller
     {
         $component = Component::find($id);
         $request->session()->put('selected_' . strtolower($type), $component);
-        return redirect()->route('main.page');
+        return redirect()->route('main.page1');
     }
 
     // Function to show the main page with selected components
@@ -45,6 +45,6 @@ class ComponentController extends Controller
     public function resetSelections()
     {
         session()->forget(['selected_cpu', 'selected_memory', 'selected_ssd']);
-        return redirect()->route('main.page')->with('status', 'Selections reset successfully!');
+        return redirect()->route('main.page1')->with('status', 'Selections reset successfully!');
     }
 }

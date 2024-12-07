@@ -86,7 +86,7 @@
 
 <!-- Add New Component Form -->
 <h3>Add a New Component ({{ ucfirst($type ?? 'All Types') }})</h3>
-<form action="{{ route('add.component') }}" method="post">
+<form action="{{ route('add.component2') }}" method="post">
     @csrf
     <input type="text" name="name" placeholder="Component Name" required>
     <input type="text" name="type" value="{{ $type ?? '' }}" readonly>

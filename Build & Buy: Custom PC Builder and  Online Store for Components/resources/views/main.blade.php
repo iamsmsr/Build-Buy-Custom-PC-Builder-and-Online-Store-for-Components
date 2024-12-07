@@ -56,7 +56,7 @@
             </div>
             <div class="quantity-controls">
                 <span><strong>Quantity:</strong></span>
-                <button type="button" onclick="updateQuantity('ssd', -1)">-</button>
+                <button type="button " onclick="updateQuantity('ssd', -1)">-</button>
                 <span id="ssd-quantity" class="quantity-value">1</span>
                 <button type="button" onclick="updateQuantity('ssd', 1)">+</button>
             </div>
@@ -99,7 +99,7 @@
     }
 
     function resetSelections() {
-        window.location.href = "{{ route('reset.selections') }}";
+        window.location.href = "{{ route('reset.selections1') }}";
     }
 
     function printPage() {
