@@ -36,6 +36,9 @@
     @include('header')
 </header>
 
+<!-- Logout Button -->
+<a href="{{ route('ecommerce.logout') }}">Logout</a>
+
 <main class="dashboard-container">
     <h1>Welcome, {{ Auth::user()->name }}</h1>
     <h2>Your Orders</h2>

@@ -56,15 +56,21 @@
 
 <div class="payment-form">
     <h2>Make a Payment - Order #{{ $order->order_id }}</h2>
-    <p>Total Price: ${{ number_format($order->total_price, 2) }}</p>
+    <p>Original Price: ${{ number_format($order->total_price, 2) }}</p>
+    <p>Discounted Price: ${{ number_format($order->discounted_price, 2) }}</p>
+
+    <!-- Coupon Form -->
+    <form method="POST" action="{{ route('payment.applyCoupon', ['order_id' => $order->order_id]) }}">
+        @csrf
+        <label for="coupon_code">Coupon Code</label>
+        <input type="text" id="coupon_code" name="coupon_code" required placeholder="Enter coupon code">
+        <button type="submit">Apply Coupon</button>
+    </form>
 
     <form method="POST" action="{{ route('payment.process', ['order_id' => $order->order_id]) }}">
         @csrf
         <label for="card_number">Card Number</label>
         <input type="text" id="card_number" name="card_number" required placeholder="Enter your card number">
-
-{{--        <label for="expiry_date">Expiry Date</label>--}}
-{{--        <input type="text" id="expiry_date" name="expiry_date" required placeholder="MM/YY">--}}
 
         <label for="pin">PIN</label>
         <input type="password" id="pin" name="pin" required placeholder="Enter your PIN">
@@ -80,19 +86,16 @@
 </div>
 
 <script>
-    // Basic form validation before submission
     document.getElementById('payment-button').addEventListener('click', function(event) {
         let cardNumber = document.getElementById('card_number').value;
         let pin = document.getElementById('pin').value;
-        let expiryDate = document.getElementById('expiry_date').value;
 
-        // Simple validation for non-empty fields and card number format
-        if (!cardNumber || !pin ) {
+        if (!cardNumber || !pin) {
             alert('Please fill in all fields.');
-            event.preventDefault(); // Prevent form submission
+            event.preventDefault();
         } else if (!/^\d{16}$/.test(cardNumber)) {
             alert('Invalid card number. Please enter a 16-digit number.');
-            event.preventDefault(); // Prevent form submission
+            event.preventDefault();
         }
     });
 </script>

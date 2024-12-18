@@ -32,6 +32,8 @@
                         <p>{{ $component->name }}</p>
                         <span>${{ number_format($component->price, 2) }}</span>
                         <a href="{{ route('add.component', ['type' => $component->type, 'id' => $component->id]) }}" class="btn-add">Add To Cart</a>
+{{--                        <a href="#" class="btn-details">See Details</a>--}}
+                        <a href="{{ route('component.details', ['id' => $component->id]) }}" class="btn-details">See Details</a>
 
                     </div>
                 @endforeach

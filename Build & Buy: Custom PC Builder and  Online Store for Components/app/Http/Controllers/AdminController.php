@@ -8,9 +8,10 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Illuminate\Support\Facades\Auth;
-
-
+use App\Models\Coupon;
+use App\Models\Poll;
 class AdminController extends Controller
+
 {
     public function showLoginPage()
     {
@@ -155,5 +156,110 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', 'Component updated successfully!');
     }
+
+    public function createPoll(Request $request)
+    {
+        // Validate the poll data
+        $validated = $request->validate([
+            'question' => 'required|string|max:255',
+            'option1' => 'required|string|max:255',
+            'option2' => 'required|string|max:255',
+            'option3' => 'required|string|max:255',
+            'option4' => 'required|string|max:255',
+            'is_active' => 'boolean',  // Ensures it's either true or false
+        ]);
+
+        // Create a new poll
+        Poll::create([
+            'type' => 'poll', // This assumes that the poll type is fixed as 'poll'
+            'question' => $validated['question'],
+            'option1' => $validated['option1'],
+            'option2' => $validated['option2'],
+            'option3' => $validated['option3'],
+            'option4' => $validated['option4'],
+            'vote_count' => 0,  // Initial vote count is 0
+            'is_active' => $validated['is_active'] ?? true,  // Default to active if not provided
+        ]);
+
+        return redirect()->route('admin.dashboard')->with('success', 'Poll created successfully!');
+    }
+
+    public function showPolls()
+    {
+        // Fetch all polls (active and inactive)
+        $polls = Poll::all();
+
+        return view('admin.dashboard', compact('polls'));
+    }
+
+
+    public function togglePoll($id)
+    {
+        // Find the poll by ID and toggle its active status
+        $poll = Poll::findOrFail($id);
+        $poll->is_active = !$poll->is_active;
+        $poll->save();
+
+        return redirect()->back()->with('success', 'Poll status updated successfully.');
+    }
+
+    public function deletePoll($id)
+    {
+        // Find the poll by ID and delete it
+        $poll = Poll::findOrFail($id);
+        $poll->delete();
+
+        return redirect()->back()->with('success', 'Poll deleted successfully.');
+    }
+
+
+
+
+    public function showCoupons()
+    {
+        $coupons = Coupon::all(); // Fetch all coupons
+        return view('admin.dashboard', compact('coupons')); // Pass to the dashboard
+    }
+
+    public function createCoupon(Request $request)
+    {
+        $validated = $request->validate([
+            'coupon_code' => 'required|string|unique:coupons|max:50',
+            'discount' => 'required|numeric|min:0|max:100',
+            'expiry_date' => 'nullable|date|after:today',
+        ]);
+
+        Coupon::create([
+            'coupon_code' => $request->input("coupon_code"), // Use 'code' from form
+            'discount' => $validated['discount']
+        ]);
+
+
+        return redirect()->back()->with('success', 'Coupon created successfully!');
+    }
+
+    public function deleteCoupon($id)
+    {
+        $coupon = Coupon::findOrFail($id);
+        $coupon->delete();
+
+        return redirect()->back()->with('success', 'Coupon deleted successfully!');
+    }
+
+    public function updateCoupon(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'discount' => 'required|numeric|min:0|max:100',
+            'expiry_date' => 'nullable|date|after:today',
+        ]);
+
+        $coupon = Coupon::findOrFail($id);
+        $coupon->update($validated);
+
+        return redirect()->back()->with('success', 'Coupon updated successfully!');
+    }
+
+
+
 
 }

@@ -64,6 +64,27 @@ Route::put('/admin/dashboard/update/{id}', [AdminController::class, 'updateCompo
 
 
 
+
+Route::post('/admin/create-poll', [AdminController::class, 'createPoll'])->name('admin.create.poll');
+
+Route::get('/admin/polls', [AdminController::class, 'showPolls'])->name('admin.show.polls');
+Route::patch('/admin/poll/toggle/{id}', [AdminController::class, 'togglePoll'])->name('admin.poll.toggle');
+Route::delete('/admin/poll/delete/{id}', [AdminController::class, 'deletePoll'])->name('admin.poll.delete');
+
+
+
+//COUPONS
+
+Route::get('admin/coupons', [AdminController::class, 'showCoupons'])->name('admin.coupons');
+Route::post('admin/coupons/create', [AdminController::class, 'createCoupon'])->name('admin.coupons.create');
+Route::delete('admin/coupons/{id}', [AdminController::class, 'deleteCoupon'])->name('admin.coupons.delete');
+Route::patch('admin/coupons/{id}', [AdminController::class, 'updateCoupon'])->name('admin.coupons.update');
+
+
+
+
+
+
 //ecommerce routes
 
 
@@ -107,7 +128,28 @@ Route::get('/payment/{order_id}', [PaymentController::class, 'showPaymentPage'])
 // Route to handle the payment form submission (POST)
 Route::post('/payment/{order_id}', [PaymentController::class, 'processPayment'])->name('payment.process');
 
+Route::post('/payment/{order_id}/apply-coupon', [PaymentController::class, 'applyCoupon'])->name('payment.applyCoupon');
 
+
+
+
+//Ecommerce2
+
+use App\Http\Controllers\Ecommerce2Controller;
+
+//Route::get('/component/details/{id}', [Ecommerce2Controller::class, 'showDetails'])->name('component.details');
+
+
+Route::get('/component/details/{id}', [Ecommerce2Controller::class, 'getComponentById'])->name('component.details');
+
+//Route to handle review submission
+Route::post('/component/{id}/review', [Ecommerce2Controller::class, 'addReview'])->name('add.review');
+
+//Route::get('/component/{id}/reviews', [Ecommerce2Controller::class, 'getReviewsForProduct'])->name('product.reviews');
+
+
+Route::get('/polls', [Ecommerce2Controller::class, 'showPolls'])->name('polls.show');
+Route::post('/polls/vote/{poll_id}', [Ecommerce2Controller::class, 'vote'])->name('polls.vote');
 
 
 
