@@ -19,6 +19,8 @@
             <div class="selected-product">
                 <span><strong>Selected Product:</strong> {{ $selectedCpu->name ?? 'None' }}</span>
                 <span><strong>Price:</strong> $<span id="cpu-price">{{ number_format($selectedCpu->price ?? 0, 2) }}</span></span>
+
+                <span><strong>Power Consumption:</strong> watt<span id="cpu-power">{{ $selectedCpu->power ?? 0}}</span></span>
             </div>
             <div class="quantity-controls">
                 <span><strong>Quantity:</strong></span>
@@ -36,6 +38,8 @@
             <div class="selected-product">
                 <span><strong>Selected Product:</strong> {{ $selectedRam->name ?? 'None' }}</span>
                 <span><strong>Price:</strong> $<span id="ram-price">{{ number_format($selectedRam->price ?? 0, 2) }}</span></span>
+
+                <span><strong>Power Consumption:</strong> watt<span id="ram-power">{{ $selectedRam->power ?? 0}}</span></span>
             </div>
             <div class="quantity-controls">
                 <span><strong>Quantity:</strong></span>
@@ -53,6 +57,8 @@
             <div class="selected-product">
                 <span><strong>Selected Product:</strong> {{ $selectedSsd->name ?? 'None' }}</span>
                 <span><strong>Price:</strong> $<span id="ssd-price">{{ number_format($selectedSsd->price ?? 0, 2) }}</span></span>
+
+                <span><strong>Power Consumption:</strong> watt<span id="ssd-power">{{ $selectedSsd->power ?? 0}}</span></span>
             </div>
             <div class="quantity-controls">
                 <span><strong>Quantity:</strong></span>
@@ -66,7 +72,9 @@
     </div>
 
     <div class="total-price-section">
+        <h2>Total Power Consumption: <span id="total-power">{{ $totalPower}} watt </span></h2>
         <h2>Total Price: $<span id="total-price">{{ number_format($totalPrice, 2) }}</span></h2>
+
     </div>
 
     <!-- Action Buttons -->
@@ -74,6 +82,10 @@
         <button id="reset-button" class="btn" onclick="resetSelections()">Reset</button>
         <button id="print-button" class="btn" onclick="printPage()">Print</button>
         <button id="screenshot-button" class="btn" onclick="captureScreenshot()">Screenshot</button>
+        <!-- Add this button in the action-buttons section -->
+        <a href="{{ route('bottleneck.calculator') }}" class="btn">Bottleneck Calculator</a>
+
+
     </div>
 </div>
 

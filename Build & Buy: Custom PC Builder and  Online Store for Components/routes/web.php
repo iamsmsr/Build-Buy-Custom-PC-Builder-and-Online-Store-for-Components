@@ -26,6 +26,14 @@ Route::get('/add-component/{type}/{id}', [ComponentController::class, 'addCompon
 Route::get('/reset-selections', [ComponentController::class, 'resetSelections'])->name('reset.selections1');
 
 
+// Route to show the bottleneck calculator
+Route::get('/bottleneck-calculator', [ComponentController::class, 'showBottleneckCalculator'])->name('bottleneck.calculator');
+
+// Route to calculate bottleneck
+Route::post('/calculate-bottleneck', [ComponentController::class, 'calculateBottleneck'])->name('bottleneck.calculate');
+
+
+
 
 use App\Http\Controllers\AdminController;
 use Maatwebsite\Excel\Facades\Excel;

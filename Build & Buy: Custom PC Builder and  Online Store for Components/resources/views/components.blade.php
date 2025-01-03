@@ -17,6 +17,7 @@
             <th>Type</th>
             <th>Brand</th>
             <th>Price</th>
+            <th>Power Consumption</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -27,6 +28,7 @@
                 <td>{{ $component->type }}</td>
                 <td>{{ $component->brand }}</td>
                 <td>${{ number_format($component->price, 2) }}</td>
+                <td>{{ $component->power }} watt</td>
                 <td>
                     <!-- Add Button -->
                     <a href="{{ route('add.component1', ['type' => $component->type, 'id' => $component->id]) }}" class="btn-add">Add</a>

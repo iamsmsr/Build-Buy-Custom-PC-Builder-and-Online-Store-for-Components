@@ -15,5 +15,6 @@ class Component extends Model
         'brand',
         'price',
         'quantity',
+        'power'
     ];
 }
