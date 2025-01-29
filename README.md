@@ -5,4 +5,8 @@ comparison, order tracking, customer reviews etc
 • Built with Laravel, MySQL, HTML/CSS, and JavaScript MVC architecture
 
 Project for CSE470 (Software Engineering)
+
 SRS and Database are given 
+
+For any query mail @ mesmsr013@gmail.com
+
